@@ -1,0 +1,26 @@
+{
+  "comment": "This is bundled JSON file. Idea is that we should externalize this also as part of build. Currently this is going to hold the dev env information",
+  "port": 3000,
+  "defaultDataSource": {
+    "host": "localhost",
+    "username": "postgres",
+    "password": "postgres",
+    "database": "cmms_db",
+    "port": 5432,
+    "entities": "dist/cmms_db/**/*.entity.js",
+    "logging": false,
+    "migrationsRun": true,
+    "autoLoadEntities": true,
+    "synchronize": true,
+    "ssl": false
+  },
+  "redisConfig": {
+    "redisHost": "127.0.0.1",
+    "redisPort": 6379,
+    "cacheTtl": 0,
+    "maxItemInCache": 7200
+  },
+  "jwtSecret": "Z2TXBA78M7ZF6KZ8",
+  "jwtTokenExpire": "24h",
+  "logPath": "/Users/vsven/workspace/cmms/cmms-apis/cmms-apis.log"
+}

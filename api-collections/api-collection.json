@@ -1,0 +1,988 @@
+{
+    "collection": {
+      "info": {
+        "_postman_id": "62f9cdf2-b7ea-4a47-ab42-00885667ef78",
+        "name": "CMMS",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "updatedAt": "2024-11-22T06:11:34.000Z",
+        "createdAt": "2024-11-15T18:29:52.000Z",
+        "lastUpdatedBy": "19893841",
+        "uid": "19893841-62f9cdf2-b7ea-4a47-ab42-00885667ef78"
+      },
+      "item": [
+        {
+          "name": "Auth",
+          "item": [
+            {
+              "name": "Login",
+              "id": "b277563a-d1ab-4630-9e09-d958498750c8",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"username\": \"sujith2000\",\n    \"password\": \"sriram98\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCALHOST}}/api/v1/cmms/auth/login",
+                  "host": [
+                    "{{LOCALHOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cmms",
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "response": [],
+              "uid": "19893841-b277563a-d1ab-4630-9e09-d958498750c8"
+            },
+            {
+              "name": "Register",
+              "id": "7c9701d9-e535-4af3-aca1-c2146c0f0a1e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNyaXJhbWFtYWxpbmdhbUBnbWFpbC5jb20iLCJpZCI6ImJlOThjZTE1LWViZDgtNGVkMS1iNDEyLWY0MDk4YTE3NDkyZCIsImlhdCI6MTczMTc2MTM3MSwiZXhwIjoxNzMxNzkwMTcxfQ.E5nrqK1_2zAp3xGZEQ81m4HRwnCV5rWCnoBDuVYM-MQ",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"username\": \"sujith\",\n    \"password\": \"sriram98\",\n    \"email\": \"sujith@gmail.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCALHOST}}/api/v1/cmms/auth/register",
+                  "host": [
+                    "{{LOCALHOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cmms",
+                    "auth",
+                    "register"
+                  ]
+                }
+              },
+                        "response": [],
+              "uid": "19893841-7c9701d9-e535-4af3-aca1-c2146c0f0a1e"
+            }
+          ],
+          "id": "374d1202-6364-42c7-8f2a-1d3468e250aa",
+          "uid": "19893841-374d1202-6364-42c7-8f2a-1d3468e250aa"
+        },
+        {
+          "name": "Users",
+          "item": [
+            {
+              "name": "Fetch User",
+              "id": "883281d3-1cf0-4a2f-a2ec-f7774f20a427",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{ENGINEER_TOKEN}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCALHOST}}/api/v1/cmms/user?isDeleted=false&offset=1&limit=10",
+                  "host": [
+                    "{{LOCALHOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cmms",
+                    "user"
+                  ],
+                  "query": [
+                    {
+                      "key": "username",
+                      "value": "s",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "email",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "isDeleted",
+                      "value": "false"
+                    },
+                    {
+                      "key": "mobileNumber",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "offset",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                
+              ],
+              "uid": "19893841-883281d3-1cf0-4a2f-a2ec-f7774f20a427"
+            },
+            {
+              "name": "Fetch User By id",
+              "id": "b55c6667-95ae-4408-a20c-2b40355f8316",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{ENGINEER_TOKEN}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCALHOST}}/api/v1/cmms/user/0a93bd17-bda9-46b9-aed5-d868453fd372",
+                  "host": [
+                    "{{LOCALHOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cmms",
+                    "user",
+                    "0a93bd17-bda9-46b9-aed5-d868453fd372"
+                  ]
+                }
+              },
+              "response": [
+                
+              ],
+              "uid": "19893841-b55c6667-95ae-4408-a20c-2b40355f8316"
+            },
+            {
+              "name": "Update user",
+              "id": "8e898d38-12b3-416d-8366-1314ba27643e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{ENGINEER_TOKEN}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"roleId\": 8\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCALHOST}}/api/v1/cmms/user/ddb126bc-3ebe-45ed-a9a3-04cfa824bffd",
+                  "host": [
+                    "{{LOCALHOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cmms",
+                    "user",
+                    "ddb126bc-3ebe-45ed-a9a3-04cfa824bffd"
+                  ]
+                }
+              },
+              "response": [
+                
+              ],
+              "uid": "19893841-8e898d38-12b3-416d-8366-1314ba27643e"
+            },
+            {
+              "name": "Reset password by userId",
+              "id": "e1718131-0522-4a1e-8179-144c6ffe37b1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{TOKEN}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"password\": \"sriram98\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCALHOST}}/api/v1/cmms/user/be98ce15-ebd8-4ed1-b412-f4098a17492d/reset-password",
+                  "host": [
+                    "{{LOCALHOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cmms",
+                    "user",
+                    "be98ce15-ebd8-4ed1-b412-f4098a17492d",
+                    "reset-password"
+                  ]
+                }
+              },
+              "response": [
+                
+              ],
+              "uid": "19893841-e1718131-0522-4a1e-8179-144c6ffe37b1"
+            },
+            {
+              "name": "Create user",
+              "id": "9e375e8a-f4df-4a41-8f71-8608c5eb2b88",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{TOKEN}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"username\": \"divya\",\n    \"password\": \"sriram98\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCALHOST}}/api/v1/cmms/user",
+                  "host": [
+                    "{{LOCALHOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cmms",
+                    "user"
+                  ]
+                }
+              },
+              "response": [
+                
+              ],
+              "uid": "19893841-9e375e8a-f4df-4a41-8f71-8608c5eb2b88"
+            },
+            {
+              "name": "Delete user",
+              "id": "5e9849e7-c586-4405-8c62-538e454bc0a1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNyaXJhbXJhbWFsaW5nYW0iLCJpZCI6ImJlOThjZTE1LWViZDgtNGVkMS1iNDEyLWY0MDk4YTE3NDkyZCIsImlhdCI6MTczMTc2MzA1MywiZXhwIjoxNzMxNzkxODUzfQ.6dTkGGtUWcZ0M_D40S1ZC3e4Qe8ZRChw96hOzufYcAQ",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCALHOST}}/api/v1/cmms/user/5de68041-0308-4fc8-ad71-188a05fa0e9f",
+                  "host": [
+                    "{{LOCALHOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cmms",
+                    "user",
+                    "5de68041-0308-4fc8-ad71-188a05fa0e9f"
+                  ]
+                }
+              },
+              "response": [
+                
+              ],
+              "uid": "19893841-5e9849e7-c586-4405-8c62-538e454bc0a1"
+            }
+          ],
+          "id": "7a2d9824-cb4c-481b-85c5-d2df81c49117",
+          "uid": "19893841-7a2d9824-cb4c-481b-85c5-d2df81c49117"
+        },
+        {
+          "name": "Assets",
+          "item": [
+            {
+              "name": "Create asset",
+              "id": "a75a304e-7144-43aa-a300-35925ae20e07",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{TOKEN}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"title\": \"Dell XPS 13\",\n    \"category\": \"Electronics\",\n    \"photos\": [\n        \"https://example.com/images/photo1.jpg\",\n        \"https://example.com/images/photo2.jpg\"\n    ],\n    \"metadata\": {\n        \"brand\": \"Dell\",\n        \"model\": \"XPS 13\",\n        \"year\": 2021,\n        \"color\": \"Silver\"\n    },\n    \"specifications\": \"Intel i7, 16GB RAM, 512GB SSD\",\n    \"location\": {\n        \"latitude\": 37.774929,\n        \"longitude\": -122.419418\n    },\n    \"localLabel\": \"Asset-001\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCALHOST}}/api/v1/cmms/asset",
+                  "host": [
+                    "{{LOCALHOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cmms",
+                    "asset"
+                  ]
+                }
+              },
+              "response": [
+                
+              ],
+              "uid": "19893841-a75a304e-7144-43aa-a300-35925ae20e07"
+            }
+          ],
+          "id": "d3691507-b9fc-4b6b-aefb-82ec5e1ec0ad",
+          "uid": "19893841-d3691507-b9fc-4b6b-aefb-82ec5e1ec0ad"
+        },
+        {
+          "name": "Role",
+          "item": [
+            {
+              "name": "Create role permission",
+              "id": "c201d0a1-adda-4e6f-ac95-41e9abef95d1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{TOKEN}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Chief Experience Officer (CXO)\",\n    \"description\": \"Responsible for overseeing organizational operations and ensuring smooth execution of maintenance and asset management processes.\",\n    \"permissions\": [\n        {\n            \"id\": 22\n        },\n        {\n            \"id\": 23\n        },\n        {\n            \"id\": 24\n        },\n        {\n            \"id\": 25\n        }\n    ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCALHOST}}/api/v1/cmms/role-permission",
+                  "host": [
+                    "{{LOCALHOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cmms",
+                    "role-permission"
+                  ]
+                }
+              },
+              "response": [
+                
+              ],
+              "uid": "19893841-c201d0a1-adda-4e6f-ac95-41e9abef95d1"
+            },
+            {
+              "name": "Create permission",
+              "id": "beff6bc6-b551-4341-b3af-3ed7ae839052",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{TOKEN}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"CREATE_TASKS\",\n    \"description\": \"Create, edit, and assign tasks to technicians\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCALHOST}}/api/v1/cmms/permission",
+                  "host": [
+                    "{{LOCALHOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cmms",
+                    "permission"
+                  ]
+                }
+              },
+              "response": [
+                
+              ],
+              "uid": "19893841-beff6bc6-b551-4341-b3af-3ed7ae839052"
+            },
+            {
+              "name": "Fetch role permission",
+              "id": "145a8e4c-5e0a-435d-af3c-716b281d6763",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{TOKEN}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCALHOST}}/api/v1/cmms/role-permission",
+                  "host": [
+                    "{{LOCALHOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cmms",
+                    "role-permission"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "eng",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": [
+                
+              ],
+              "uid": "19893841-145a8e4c-5e0a-435d-af3c-716b281d6763"
+            },
+            {
+              "name": "Fetch role permission by Id",
+              "id": "68f9ac01-86d8-4252-b39b-748894fff23e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{TOKEN}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCALHOST}}/api/v1/cmms/role-permission/1",
+                  "host": [
+                    "{{LOCALHOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cmms",
+                    "role-permission",
+                    "1"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "eng",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": [
+                
+              ],
+              "uid": "19893841-68f9ac01-86d8-4252-b39b-748894fff23e"
+            },
+            {
+              "name": "Fetch permission",
+              "id": "b7af4959-3165-4da8-9838-611ebca0b0e8",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{TOKEN}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCALHOST}}/api/v1/cmms/permission?name=task",
+                  "host": [
+                    "{{LOCALHOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cmms",
+                    "permission"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "task",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                
+              ],
+              "uid": "19893841-b7af4959-3165-4da8-9838-611ebca0b0e8"
+            }
+          ],
+          "id": "9e01c7c8-c72b-4e2b-bf67-aea438deb82d",
+          "uid": "19893841-9e01c7c8-c72b-4e2b-bf67-aea438deb82d"
+        },
+        {
+          "name": "Task",
+          "item": [
+            {
+              "name": "Create task",
+              "id": "f8a73120-f6e4-4b73-95e7-0cdcc598195c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{ENGINEER_TOKEN}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"title\": \"Test 10\",\n    \"description\": \"Perform a detailed inspection of all assets in Building A.\",\n    \"status\": \"pending\",\n    \"startDate\": \"2024-11-25T09:00:00Z\",\n    \"dueDate\": \"2024-11-30T17:00:00Z\",\n    \"priority\": \"High\",\n    \"asset\": \"8b1b5a3f-d97b-426f-bea3-adcc790f68ee\",\n    \"remarks\": \"Please prioritize critical assets first.\",\n    \"assignedTo\": \"b3b4e6e1-6e0c-43f5-bb40-2fad6b415352\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCALHOST}}/api/v1/cmms/task?offset=0&limit=10&startDate&endDate",
+                  "host": [
+                    "{{LOCALHOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cmms",
+                    "task"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": null
+                    },
+                    {
+                      "key": "endDate",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              "response": [
+                
+              ],
+              "uid": "19893841-f8a73120-f6e4-4b73-95e7-0cdcc598195c"
+            },
+            {
+              "name": "Update task",
+              "id": "e9f75555-1a88-4e99-a5a7-e67e970d17a7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{ENGINEER_TOKEN}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"title\": \"Quarterly Asset Inspection\",\n    \"description\": \"Perform a detailed inspection of all assets in Building A.\",\n    \"status\": \"Pending\",\n    \"startDate\": \"2024-11-25T09:00:00Z\",\n    \"dueDate\": \"2024-11-30T17:00:00Z\",\n    \"priority\": \"High\",\n    \"asset\": \"8b1b5a3f-d97b-426f-bea3-adcc790f68ee\",\n    \"remarks\": \"Please prioritize critical assets first.\",\n    \"assignedTo\": \"b3b4e6e1-6e0c-43f5-bb40-2fad6b415352\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCALHOST}}/api/v1/cmms/task/54d3dba8-7a9a-432f-a3ed-defa12ec13b3",
+                  "host": [
+                    "{{LOCALHOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cmms",
+                    "task",
+                    "54d3dba8-7a9a-432f-a3ed-defa12ec13b3"
+                  ]
+                }
+              },
+              "response": [
+                
+              ],
+              "uid": "19893841-e9f75555-1a88-4e99-a5a7-e67e970d17a7"
+            },
+            {
+              "name": "Fetch task",
+              "id": "4d2e96bb-90c5-4115-bd0a-3b47e343f423",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{ENGINEER_TOKEN}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCALHOST}}/api/v1/cmms/task?offset=0&limit=10",
+                  "host": [
+                    "{{LOCALHOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cmms",
+                    "task"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": null,
+                      "disabled": true
+                    },
+                    {
+                      "key": "endDate",
+                      "value": null,
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": [
+                
+              ],
+              "uid": "19893841-4d2e96bb-90c5-4115-bd0a-3b47e343f423"
+            },
+            {
+              "name": "Approve task",
+              "id": "dfb24ff5-803b-4ed3-84b1-0276c4b9ec45",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{ENGINEER_TOKEN}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"approveStatus\": \"approved\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCALHOST}}/api/v1/cmms/task/be0a6195-4045-4089-996e-585cff8c6eb4/approve",
+                  "host": [
+                    "{{LOCALHOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cmms",
+                    "task",
+                    "be0a6195-4045-4089-996e-585cff8c6eb4",
+                    "approve"
+                  ]
+                }
+              },
+              "response": [
+                
+              ],
+              "uid": "19893841-dfb24ff5-803b-4ed3-84b1-0276c4b9ec45"
+            },
+            {
+              "name": "Task assinged-to",
+              "id": "f8aaae63-69f1-403c-adfc-785ce5cabe46",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{ENGINEER_TOKEN}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{LOCALHOST}}/api/v1/cmms/task/be0a6195-4045-4089-996e-585cff8c6eb4/assigned-to/f1ab955b-511e-4826-89ea-9176e9a697ed",
+                  "host": [
+                    "{{LOCALHOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cmms",
+                    "task",
+                    "be0a6195-4045-4089-996e-585cff8c6eb4",
+                    "assigned-to",
+                    "f1ab955b-511e-4826-89ea-9176e9a697ed"
+                  ]
+                }
+              },
+              "response": [
+                
+              ],
+              "uid": "19893841-f8aaae63-69f1-403c-adfc-785ce5cabe46"
+            },
+            {
+              "name": "Fetch task by Id",
+              "id": "f8303709-31bd-495c-85c8-ad76323cda5e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{ENGINEER_TOKEN}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCALHOST}}/api/v1/cmms/task/54d3dba8-7a9a-432f-a3ed-defa12ec13b3",
+                  "host": [
+                    "{{LOCALHOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cmms",
+                    "task",
+                    "54d3dba8-7a9a-432f-a3ed-defa12ec13b3"
+                  ]
+                }
+              },
+              "response": [
+                
+              ],
+              "uid": "19893841-f8303709-31bd-495c-85c8-ad76323cda5e"
+            },
+            {
+              "name": "Fetch task by assigned-to id",
+              "id": "8db14a1c-1bfe-4ffa-919d-d4eea4c2e450",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{ENGINEER_TOKEN}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{LOCALHOST}}/api/v1/cmms/task/assigned-to/f1ab955b-511e-4826-89ea-9176e9a697ed",
+                  "host": [
+                    "{{LOCALHOST}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "cmms",
+                    "task",
+                    "assigned-to",
+                    "f1ab955b-511e-4826-89ea-9176e9a697ed"
+                  ]
+                }
+              },
+              "response": [
+                
+              ],
+              "uid": "19893841-8db14a1c-1bfe-4ffa-919d-d4eea4c2e450"
+            }
+          ],
+          "id": "c5c7bf7c-139e-47e3-9805-473b7aad27d7",
+          "uid": "19893841-c5c7bf7c-139e-47e3-9805-473b7aad27d7"
+        }
+      ]
+    }
+  }

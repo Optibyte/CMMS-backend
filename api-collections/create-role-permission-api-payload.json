@@ -1,0 +1,40 @@
+[
+    {
+        "name": "Technician",
+        "code": "TECHNICIAN",
+        "description": "",
+        "permissions": []
+    },
+    {
+        "name": "Engineer",
+        "code": "ENGINEER",
+        "permissions": [
+            {
+                "name": "CREATE_TASK",
+                "code": null,
+                "description": "Create, edit, and assign tasks to technicians"
+            }
+        ]
+    },
+    {
+        "name": "Admin",
+        "code": "ADMIN",
+        "updatedAt": "2024-11-25T17:26:38.653Z",
+        "permissions": [
+            {
+                "name": "CREATE_USERS"
+            }
+        ]
+    },
+    {
+        "name": "Head of the Department",
+        "code": "HOD",
+        "description": "",
+        "permissions": [
+            {
+                "name": "APPROVE_TASKS",
+                "code": null
+            }
+        ]
+    }
+]
