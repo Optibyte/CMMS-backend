@@ -33,6 +33,9 @@ export class ChecklistEntity {
     @Column({ name: 'category', type: 'text', nullable: true })
     category: string;
 
+    @Column({ name: 'photos', type: 'json', nullable: true })
+    photos: string[];
+
     @ManyToOne(() => AssetEntity, asset => asset.checklists)
     @JoinColumn({ name: 'asset_id' })
     asset: AssetEntity;

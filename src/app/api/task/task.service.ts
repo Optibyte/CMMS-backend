@@ -16,6 +16,8 @@ import { UsersService } from '../users/user.service';
 import { createTaskNotificationMessage, TaskApprovalNotification, TaskAssignedNotification } from '../notifications/utils/notification.utils';
 import { ChecklistEntity } from '../checklist/entities/checklist.entity';
 
+import { RedisCacheService } from 'src/redis-cache/redis-cache.service';
+
 @Injectable()
 export class TaskService {
 
@@ -25,6 +27,7 @@ export class TaskService {
         private readonly normalizeService: NormalizeService,
         private readonly notificationService: NotificationService,
         private readonly userService: UsersService,
+        private readonly redisCacheService: RedisCacheService,
         @InjectRepository(TaskEntity, DatabaseNames.CMMS_DB)
         private readonly taskRepository: Repository<TaskEntity>,
         @InjectRepository(ChecklistEntity, DatabaseNames.CMMS_DB)
@@ -105,6 +108,19 @@ export class TaskService {
         }
     }
 
+    private async enrichTasksWithPhotos(tasks: TaskEntity[]) {
+        for (const task of tasks) {
+            if (task.checklists) {
+                for (const checklist of task.checklists) {
+                    const cachedPhotos = await this.redisCacheService.get(`checklist_photos:${checklist.id}`);
+                    if (cachedPhotos) {
+                        checklist.photos = cachedPhotos;
+                    }
+                }
+            }
+        }
+    }
+
     async findAll(filters: TaskFilters, request: Req) {
         try {
             const { status, startDate, endDate, offset = 0, limit = 10 } = filters;
@@ -140,8 +156,11 @@ export class TaskService {
             queryBuilder.skip(offset).take(limit).orderBy('task.createdAt', 'DESC');
 
             // Execute the query
-            const [task, totalCount] = await queryBuilder.getManyAndCount();
-            const normalizeTask = task.map((item) => this.normalizeService.normalizeTask(item));
+            const [tasks, totalCount] = await queryBuilder.getManyAndCount();
+
+            await this.enrichTasksWithPhotos(tasks);
+
+            const normalizeTask = tasks.map((item) => this.normalizeService.normalizeTask(item));
 
             return {
                 totalCount,
@@ -278,8 +297,11 @@ export class TaskService {
             queryBuilder.skip(offset).take(limit).orderBy('task.assignedDate', 'DESC');
 
             // Execute the query
-            const [task, totalCount] = await queryBuilder.getManyAndCount();
-            const normalizeTask = task.map((item) => this.normalizeService.normalizeTask(item));
+            const [tasks, totalCount] = await queryBuilder.getManyAndCount();
+
+            await this.enrichTasksWithPhotos(tasks);
+
+            const normalizeTask = tasks.map((item) => this.normalizeService.normalizeTask(item));
             return {
                 totalCount,
                 normalizeTask
@@ -371,8 +393,11 @@ export class TaskService {
 
             // Add pagination and sorting
             queryBuilder.orderBy('task.createdAt', 'DESC');
-            const [response, totalCount] = await queryBuilder.getManyAndCount();
-            const task = response.map((item) => this.normalizeService.normalizeTask(item));
+            const [tasks, totalCount] = await queryBuilder.getManyAndCount();
+
+            await this.enrichTasksWithPhotos(tasks);
+
+            const task = tasks.map((item) => this.normalizeService.normalizeTask(item));
 
             return {
                 totalCount,
@@ -400,6 +425,72 @@ export class TaskService {
         } catch (error) {
             this.loggerService.loggerService({ level: LogsLevelConstant.ERROR, message: error?.message });
             throw new HttpException(error?.message, error?.status);
+        }
+    }
+
+    async addPhotoToChecklist(checklistId: string, photoUrl: string) {
+        try {
+            const checklist = await this.checkListRepository.findOne({ where: { id: checklistId } });
+            if (!checklist) {
+                throw new Error(`Checklist with ID ${checklistId} not found`);
+            }
+            const photos = checklist.photos || [];
+            photos.push(photoUrl);
+            await this.checkListRepository.update(checklistId, { photos });
+
+            // Cache in Redis for faster access upon reload
+            await this.redisCacheService.set(`checklist_photos:${checklistId}`, photos);
+
+            return photos;
+        } catch (error) {
+            this.loggerService.loggerService({ level: LogsLevelConstant.ERROR, message: error?.message });
+            throw error;
+        }
+    }
+
+    async removePhotoFromChecklist(checklistId: string, photoUrl: string) {
+        try {
+            const checklist = await this.checkListRepository.findOne({ where: { id: checklistId } });
+            if (!checklist) {
+                throw new Error(`Checklist with ID ${checklistId} not found`);
+            }
+            let photos = checklist.photos || [];
+            photos = photos.filter(url => url !== photoUrl);
+            await this.checkListRepository.update(checklistId, { photos });
+
+            // Update Redis cache
+            await this.redisCacheService.set(`checklist_photos:${checklistId}`, photos);
+
+            return photos;
+        } catch (error) {
+            this.loggerService.loggerService({ level: LogsLevelConstant.ERROR, message: error?.message });
+            throw error;
+        }
+    }
+
+    async getChecklistPhotos(checklistId: string) {
+        try {
+            // Try fetching from Redis first
+            let photos = await this.redisCacheService.get(`checklist_photos:${checklistId}`);
+            if (photos) {
+                console.log(`DEBUG: Fetched photos for ${checklistId} from Redis`);
+                return photos;
+            }
+
+            // Fallback to DB
+            const checklist = await this.checkListRepository.findOne({ where: { id: checklistId } });
+            if (!checklist) {
+                throw new Error(`Checklist with ID ${checklistId} not found`);
+            }
+
+            photos = checklist.photos || [];
+            // Update Redis cache for next time
+            await this.redisCacheService.set(`checklist_photos:${checklistId}`, photos);
+
+            return photos;
+        } catch (error) {
+            this.loggerService.loggerService({ level: LogsLevelConstant.ERROR, message: error?.message });
+            throw error;
         }
     }
 }

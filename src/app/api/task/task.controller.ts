@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Request, Put, Query, UseGuards, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Request, Put, Query, UseGuards, HttpCode, HttpStatus, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { ApproveTaskDto, CreateTaskDto, TaskSummaryFilters } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { RouteConstants } from '../constants/route-constants';
@@ -8,10 +8,47 @@ import { RequestParams } from '../constants/message-constants';
 import { TaskFilters } from './task.interface';
 import { PermissionsEnum } from '../role-permissions/role.interface';
 import { PermissionGuard } from 'src/auth/guards/permission.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { AzureStorageService } from '../shared/azure-storage.service';
 
 @Controller()
 export class TaskController {
-    constructor(private readonly taskService: TaskService) { }
+    constructor(
+        private readonly taskService: TaskService,
+        private readonly azureStorageService: AzureStorageService
+    ) { }
+
+    @Post(RouteConstants.API_UPLOAD_TASK_IMAGE)
+    @UseInterceptors(FileInterceptor('image'))
+    async uploadTaskImage(
+        @UploadedFile() file: Express.Multer.File,
+        @Body('checklistId') checklistId?: string,
+        @Body('taskId') taskId?: string
+    ) {
+        // Store all technician task images in: technician-tasks/
+        const folderPath = 'technician-tasks';
+        const url = await this.azureStorageService.uploadFile(file, folderPath);
+
+        if (checklistId) {
+            await this.taskService.addPhotoToChecklist(checklistId, url);
+        }
+        return { url };
+    }
+
+    @Post(RouteConstants.API_DELETE_TASK_IMAGE)
+    async deleteTaskImage(@Body('url') url: string, @Body('checklistId') checklistId?: string) {
+        await this.azureStorageService.deleteFile(url);
+        if (checklistId) {
+            await this.taskService.removePhotoFromChecklist(checklistId, url);
+        }
+        return { message: 'Image deleted successfully' };
+    }
+
+    @Get('checklist/:checklistId/photos')
+    async getChecklistPhotos(@Param('checklistId') checklistId: string) {
+        const photos = await this.taskService.getChecklistPhotos(checklistId);
+        return { photos };
+    }
 
     @Post(RouteConstants.API_CREATE_TASK)
     @UseGuards(new PermissionGuard(PermissionsEnum.CREATE_TASK))

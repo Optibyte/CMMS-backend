@@ -34,4 +34,8 @@ export default () => ({
     jwtSecret: configFile?.jwtSecret,
     jwtTokenExpire: configFile?.jwtTokenExpire,
     logPath: configFile?.logPath,
+    azureStorage: {
+        containerName: process.env.AZURE_CONTAINER_NAME || configFile?.azureStorage?.containerName,
+        connectionString: process.env.AZURE_STORAGE_CONNECTION_STRING || configFile?.azureStorage?.connectionString
+    }
 })

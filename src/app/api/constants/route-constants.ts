@@ -112,4 +112,10 @@ export class RouteConstants {
 
     // PUT /api/v1/cmms/notifications/:id/read
     public static API_NOTIFICATION_MARKS_AS_READ = this.CMMS_API_ENDPOINT + this.API_NOTIFICATIONS + ':id/' + 'read';
+
+    // POST /api/v1/cmms/task/upload-image
+    public static API_UPLOAD_TASK_IMAGE = this.CMMS_API_ENDPOINT + this.API_TASK + 'upload-image';
+
+    // POST /api/v1/cmms/task/delete-image
+    public static API_DELETE_TASK_IMAGE = this.CMMS_API_ENDPOINT + this.API_TASK + 'delete-image';
 }

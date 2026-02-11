@@ -56,7 +56,7 @@ export class ApproveTaskDto {
     remarks: string;
 }
 
-export class TaskSummaryFilters{
+export class TaskSummaryFilters {
     @IsOptional()
     year: string;
 

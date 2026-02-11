@@ -6,7 +6,7 @@ import { ChecklistService } from './checklist.service';
 import { Request as Req } from '../users/user.interface';
 
 @Controller()
-export class Checklistontroller {
+export class ChecklistController {
 
     constructor(
         public readonly checklistService: ChecklistService

@@ -22,5 +22,9 @@
   },
   "jwtSecret": "Z2TXBA78M7ZF6KZ8",
   "jwtTokenExpire": "24h",
-  "logPath": "/Users/vsven/workspace/cmms/cmms-apis/cmms-apis.log"
+  "logPath": "/Users/vsven/workspace/cmms/cmms-apis/cmms-apis.log",
+  "azureStorage": {
+    "containerName": "cmms",
+    "connectionString": "BlobEndpoint=https://devstsustainabyte.blob.core.windows.net/;SharedAccessSignature=st=2026-02-06T06:48:23Z&se=2027-08-06T15:03:23Z&si=cmms&sv=2024-11-04&sr=c&sig=Q5tI0StbDAn0bBE%2Ba1xtIAeODcM6MencjFo6hJivt0o%3D"
+  }
 }

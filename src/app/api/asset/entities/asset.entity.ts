@@ -13,9 +13,9 @@ export class AssetEntity {
     @Column({ name: 'title', type: 'varchar' })
     title: string;
 
-    @Column({ type: 'text', nullable: true, unique: true})
+    @Column({ type: 'text', nullable: true, unique: true })
     code: string;
-    
+
     @Column({ name: 'category', type: 'varchar', nullable: true })
     category: string;
 
@@ -41,7 +41,7 @@ export class AssetEntity {
     isDeleted: boolean;
 
     @ManyToOne(() => UserEntity, (user) => user.id)
-    @JoinColumn({ name: 'string' })
+    @JoinColumn({ name: 'deleted_by' })
     deletedBy: string;
 
     @ManyToOne(() => UserEntity, (user) => user.id)
@@ -52,14 +52,14 @@ export class AssetEntity {
     @JoinColumn({ name: 'updated_by' })
     updatedBy: string;
 
-    @OneToOne(() => QrCodeEntity, { eager: true, cascade: true})
+    @OneToOne(() => QrCodeEntity, { eager: true, cascade: true })
     @JoinColumn({ name: 'qr_code_id' })
     qrCode: QrCodeEntity;
 
     @OneToMany(() => LogbookEntity, logbook => logbook.asset, { cascade: true })
     logbooks: LogbookEntity[];
 
-    @OneToMany(() => ChecklistEntity, checklist => checklist.asset, { cascade: true, eager: true})
+    @OneToMany(() => ChecklistEntity, checklist => checklist.asset, { cascade: true, eager: true })
     checklists: ChecklistEntity[];
 
     @OneToMany(() => TaskEntity, tasks => tasks.asset)

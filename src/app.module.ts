@@ -18,7 +18,8 @@ import { NotificationsModule } from './app/api/notifications/notifications.modul
 @Module({
   imports: [ConfigModule.forRoot({
     isGlobal: true,
-    load: [app]
+    load: [app],
+    envFilePath: '.env'
   }),
   ScheduleModule.forRoot(),
     AuthModule,
@@ -40,13 +41,16 @@ import { NotificationsModule } from './app/api/notifications/notifications.modul
 })
 
 export class AppModule implements NestModule {
+  constructor() {
+    console.error('🚀 🚀 🚀 APP MODULE INITIALIZING... 🚀 🚀 🚀');
+  }
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(AuthMiddleware)
       .exclude(
         { path: RouteConstants.API_LOGIN, method: RequestMethod.POST },
         { path: RouteConstants.API_REGISTER_USER, method: RequestMethod.POST },
-      ) 
+      )
       .forRoutes('*');
   }
 }

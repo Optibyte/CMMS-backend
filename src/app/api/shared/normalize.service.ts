@@ -3,6 +3,9 @@ import { UserEntity } from '../users/entities/user.entity';
 
 @Injectable()
 export class NormalizeService {
+    constructor() {
+        console.error('🚀 🚀 🚀 NORMALIZE SERVICE INITIALIZING... 🚀 🚀 🚀');
+    }
 
     public normalizeuser(user) {
         if (!user) {
@@ -89,6 +92,7 @@ export class NormalizeService {
             location: asset.location,
             localLabel: asset.localLabel,
             qrCode: this.normalizeQrCode(asset?.qrCode),
+            code: asset.code,
             createdAt: asset.createdAt,
             updatedAt: asset.updatedAt,
             isDeleted: asset.isDeleted
@@ -110,7 +114,8 @@ export class NormalizeService {
             status: this.normalizeWorkflowStatus(checklist?.status) || null,
             remarks: checklist.remarks,
             expectedAnswer: checklist.expectedAnswer,
-            category: checklist.category
+            category: checklist.category,
+            photos: checklist.photos || []
         };
 
         return normalizedData;
@@ -177,6 +182,7 @@ export class NormalizeService {
             location: asset.location,
             localLabel: asset.localLabel,
             checklists: asset?.checklists?.map((item) => this.normalizeChecklist(item)) || [],
+            code: asset.code,
             createdAt: asset.createdAt,
             updatedAt: asset.updatedAt,
             isDeleted: asset.isDeleted

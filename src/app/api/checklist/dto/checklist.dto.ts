@@ -1,4 +1,4 @@
-import { IsObject, IsOptional, IsString } from "class-validator";
+import { IsArray, IsObject, IsOptional, IsString } from "class-validator";
 
 export class UpdateChecklistDto {
     @IsOptional()
@@ -27,4 +27,9 @@ export class UpdateChecklistDto {
     @IsOptional()
     @IsString()
     expectedAnswer: string;
+
+    @IsOptional()
+    @IsArray()
+    @IsString({ each: true })
+    photos: string[];
 }

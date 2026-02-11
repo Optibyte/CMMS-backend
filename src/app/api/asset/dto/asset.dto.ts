@@ -44,6 +44,10 @@ export class CreateAssetDto {
     @IsString()
     category: string;
 
+    @IsOptional()
+    @IsString()
+    code: string;
+
     @IsObject()
     @IsOptional()
     metadata: any;
@@ -87,4 +91,4 @@ export class AssetFilters {
     title: string;
 }
 
-export class UpdateAssetDto extends PartialType(CreateAssetDto) {}
+export class UpdateAssetDto extends PartialType(CreateAssetDto) { }

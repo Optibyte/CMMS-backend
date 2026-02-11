@@ -27,7 +27,7 @@ export class AssetService {
             const userId = request?.user?.id;
 
             // Generate QR code using qrCodeService
-            const code = await this.qrCodeService.generateQrCode({ title: createAssetDto.title, category: createAssetDto.category , location: createAssetDto.location, localLabel: createAssetDto.localLabel});
+            const code = await this.qrCodeService.generateQrCode({ title: createAssetDto.title, category: createAssetDto.category, location: createAssetDto.location, localLabel: createAssetDto.localLabel });
 
             // Attach generated QR code and user details to createAssetDto
             createAssetDto[FIELDS_CONSTANTS.QR_CODE] = code.id;
@@ -35,12 +35,20 @@ export class AssetService {
             createAssetDto[FIELDS_CONSTANTS.CREATED_BY] = userId;
             createAssetDto[FIELDS_CONSTANTS.UPDATED_BY] = userId;
 
-            // Get the next value for the sequence
-            const nextValue = await this.assetRepository.query(`SELECT nextval('as_sequence')`);
-            const woCode = `AS${nextValue[0].nextval}`;
-
-            // Add the WO code to the task DTO
-            createAssetDto[FIELDS_CONSTANTS.CODE] = woCode;
+            // If a code is provided from the frontend, use it. Otherwise, generate one.
+            if (!createAssetDto[FIELDS_CONSTANTS.CODE]) {
+                try {
+                    // Get the next value for the sequence
+                    const nextValue = await this.assetRepository.query(`SELECT nextval('as_sequence')`);
+                    const woCode = `AS${nextValue[0].nextval}`;
+                    // Add the WO code to the task DTO
+                    createAssetDto[FIELDS_CONSTANTS.CODE] = woCode;
+                } catch (seqError) {
+                    this.loggerService.loggerService({ level: LogsLevelConstant.ERROR, message: `Sequence generation failed: ${seqError.message}. Using fallback. ` });
+                    // Fallback to timestamp based code if sequence fails
+                    createAssetDto[FIELDS_CONSTANTS.CODE] = `AS-FB-${Date.now()}`;
+                }
+            }
 
             // Save asset in the database
             const asset = await this.assetRepository.save(createAssetDto);
@@ -117,6 +125,13 @@ export class AssetService {
             if (!existingAsset) {
                 throw new HttpException(`Asset not found for this id: ${id}`, HttpStatus.NOT_FOUND);
             }
+            if (updateAssetDto.code && updateAssetDto.code !== existingAsset.code) {
+                const codeExists = await this.assetRepository.findOne({ where: { code: updateAssetDto.code } });
+                if (codeExists) {
+                    throw new HttpException(`Asset with code ${updateAssetDto.code} already exists`, HttpStatus.CONFLICT);
+                }
+            }
+
             updateAssetDto[FIELDS_CONSTANTS.UPDATED_BY] = actionBy;
             updateAssetDto[FIELDS_CONSTANTS.UPDATED_AT] = new Date();
 

@@ -36,6 +36,7 @@ export class ChecklistService {
             }
 
             // Save the updated checklist
+            console.log('Updating checklist photos:', updateChecklistDto.photos);
             await this.checklistRepository.update(id, updateChecklistDto);
             const task = await this.taskService.findOne(taskId);
 
